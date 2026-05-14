@@ -261,6 +261,7 @@ MEMORIES = \
 	$(cva6_dir)/common/local/util/sram.sv \
 	$(cva6_dir)/vendor/pulp-platform/tech_cells_generic/src/rtl/tc_sram.sv \
 	$(cva6_dir)/pd/synth/tc_sram_wrapper_256_64_00000008_00000001_00000001_none_0.sv\
+	$(cva6_dir)/common/local/util/tc_sram_wrapper.sv \
 	$(cva6_dir)/pd/synth/hpdcache_sram_wbyteenable_1rw_00000007_00000040_00000080.sv \
 	$(cva6_dir)/pd/synth/hpdcache_sram_1rw_00000006_0000001c_00000040.sv\
 	$(cva6_cache_dir)/hpdcache/rtl/src/common/macros/behav/hpdcache_sram_1rw.sv \
@@ -268,10 +269,9 @@ MEMORIES = \
 	$(cva6_dir)/common/local/util/sram_cache.sv
 	
 #$(cva6_dir)/common/local/util/tc_sram_wrapper_cache_techno.sv 
-#$(cva6_dir)/common/local/util/tc_sram_wrapper.sv 
 
 # CVA6_CONFIG_PKG must be at the top of the file
-ALL_VSRCS = $(CVA6_CONFIG_PKG) $(CVA6_CORE_CONFIG_PKG) $(CVA6_PKGS) $(CVA6_VSRCS) $(CVA6_WRAPPER) 
+ALL_VSRCS = $(CVA6_CONFIG_PKG) $(CVA6_CORE_CONFIG_PKG) $(CVA6_PKGS) $(MEMORIES) $(CVA6_VSRCS) $(CVA6_WRAPPER) 
 
 #########################################################################################
 # pre-process using verilator
@@ -293,7 +293,7 @@ PREPROC_SCRIPT = $(base_dir)/scripts/insert-includes.py
 
 ## TODO (franout): there is probably a clever way to automatically generate memory instances for the synthesis
 
-$(PREPROC_VERILOG): $(ALL_VSRCS) $(MEMORIES)
+$(PREPROC_VERILOG): $(ALL_VSRCS)
 	mkdir -p $(dir $(PREPROC_VERILOG))
 	cat $(MEMORIES) > memories.sv
 	cat custom_memories.sv >> memories.sv
