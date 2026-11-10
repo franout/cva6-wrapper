@@ -222,11 +222,11 @@ case class CVA6CoreParams(
   val nrLoadBufEntries: Int = 2,
   override val retireWidth: Int = 1,
   override val useVector: Boolean = false,
-  val useFPU: Boolean = false,
-  val useF16: Boolean = false,
+  val useFPU: Boolean = true,
+  val useF16: Boolean = true,
   override val useAtomics: Boolean = true,
   override val useCompressed: Boolean = true,
-  val useBExt: Boolean = false,
+  val useBExt: Boolean = true,
   val iCacheByteSize: Int = 2048,
   val iCacheSetAssoc: Int = 4,
   val iCacheLineWidth: Int = 128,
@@ -282,9 +282,9 @@ case class CVA6CoreParams(
   val useConditionalZero: Boolean = false
   val useNMI: Boolean = false
   val useRVE: Boolean = false
-  val useZba: Boolean = false
-  val useZbb: Boolean = false
-  val useZbs: Boolean = false
+  val useZba: Boolean = useBExt
+  val useZbb: Boolean = useBExt
+  val useZbs: Boolean = useBExt
 }
 
 case class CVA6TileAttachParams(
